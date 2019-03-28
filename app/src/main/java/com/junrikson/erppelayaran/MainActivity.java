@@ -1,5 +1,6 @@
 package com.junrikson.erppelayaran;
 
+import android.app.ActionBar;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -11,6 +12,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Toast;
@@ -127,13 +129,13 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
         switch(code[0])
         {
             case "IN" :
-                url = "http://ligita.dyndns.org:188/Invoices/GetFromQRCode?id=" + code[1] + "&code= " + code[2];
+                url = "http://ligita.dyndns.org:188/Invoices/GetFromQRCode?id=" + code[1] + "&code=" + code[2];
                 break;
             case "CO" :
-                url = "http://ligita.dyndns.org:188/MasterContainers/GetFromQRCode?id=" + code[1] + "&code= " + code[2];
+                url = "http://ligita.dyndns.org:188/MasterContainers/GetFromQRCode?id=" + code[1] + "&code=" + code[2];
                 break;
             case "BL" :
-                url = "http://ligita.dyndns.org:188/BLs/GetFromQRCode?id=" + code[1] + "&code= " + code[2];
+                url = "http://ligita.dyndns.org:188/BLs/GetFromQRCode?id=" + code[1] + "&code=" + code[2];
                 break;
                 default:
                     new AlertDialog.Builder(MainActivity.this)
@@ -142,6 +144,7 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
                             .setCancelable(false)
                             .show();
         }
+
         if(url != "")
         {
             setContentView(R.layout.activity_main);
@@ -154,7 +157,22 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
             browser.getSettings().setJavaScriptEnabled(true);
             browser.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
             browser.loadUrl(url);
+
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivityForResult(myIntent, 0);
+        return true;
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivityForResult(myIntent, 0);
     }
 
     private class MyBrowser extends WebViewClient {
