@@ -129,13 +129,16 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
         switch(code[0])
         {
             case "IN" :
-                url = "http://ligita.dyndns.org:188/Invoices/GetFromQRCode?id=" + code[1] + "&code=" + code[2];
+                url = "https://ligita.ddns.net/Invoices/GetFromQRCode?id=" + code[1] + "&code=" + code[2];
                 break;
             case "CO" :
-                url = "http://ligita.dyndns.org:188/MasterContainers/GetFromQRCode?id=" + code[1] + "&code=" + code[2];
+                url = "https://ligita.ddns.net/MasterContainers/GetFromQRCode?id=" + code[1] + "&code=" + code[2];
+                break;
+            case "MO" :
+                url = "https://ligita.ddns.net/Memos/GetFromQRCode?id=" + code[1] + "&code=" + code[2];
                 break;
             case "BL" :
-                url = "http://ligita.dyndns.org:188/BLs/GetFromQRCode?id=" + code[1] + "&code=" + code[2];
+                url = "https://ligita.ddns.net/BLs/GetFromQRCode?id=" + code[1] + "&code=" + code[2];
                 break;
                 default:
                     new AlertDialog.Builder(MainActivity.this)
